@@ -4,7 +4,7 @@
 - **HTML**: Structure of the web pages.
 - **CSS**: Styling and layout.
 - **JavaScript**: Dynamic features and functionality.
-- **Tailwind CSS** (optional): For rapid styling and responsive design.
+- **Tailwind CSS**: For rapid styling and responsive design.
 
 ## Installation
 
@@ -22,10 +22,12 @@
 
 ## Usage
 
-1. **Adding Sections**: Use the buttons to add education or experience sections.
-2. **Filling Information**: Enter details in the provided input fields.
-3. **Live Preview**: Check the preview section to see how your resume looks.
-4. **Navigation**: Use feature buttons to jump between different sections of the application.
+- **Filling Information**: Enter details in the provided input fields.
+- **Adding Sections**: Use the buttons to add education or experience sections.
+- **Navigation**: Use feature buttons to jump between different sections of the application.
+- **Live Preview**: Check the preview section to see how your resume looks.
+- **Download Feature**: Click the "Download" button to save your resume as a PDF.
+
 
 ## Contributing
 
