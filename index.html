@@ -174,6 +174,7 @@
             container.innerHTML = `
                 <input type="text" placeholder="Job Title" class="w-full p-2 mb-2 border rounded focus:outline-none focus:ring focus:ring-blue-300" id="experienceTitle${experienceCount}">
                 <input type="text" placeholder="Company" class="w-full p-2 mb-2 border rounded focus:outline-none focus:ring focus:ring-blue-300" id="experienceCompany${experienceCount}">
+                <input type="text" placeholder="Start Date - End Date" class="w-full p-2 mb-2 border rounded focus:outline-none focus:ring focus:ring-blue-300" id="experienceDate${experienceCount}">
                 <textarea placeholder="Description" class="w-full p-2 mb-2 border rounded focus:outline-none focus:ring focus:ring-blue-300 h-24" id="experienceDescription${experienceCount}"></textarea>
                 <button onclick="removeExperience(this)" class="btn bg-red-500 text-white px-4 py-2 rounded-md mt-2">Remove Experience</button>
                 <hr class="my-4">
@@ -182,6 +183,7 @@
             addExperienceEventListeners(container);
             updatePreview(); // Ensure preview updates immediately
         }
+
 
         function addExperienceEventListeners(container) {
             container.querySelectorAll("input, textarea").forEach(element => {
@@ -200,19 +202,17 @@
             for (let i = 1; i <= experienceCount; i++) {
                 const title = document.getElementById(`experienceTitle${i}`)?.value || '';
                 const company = document.getElementById(`experienceCompany${i}`)?.value || '';
+                const date = document.getElementById(`experienceDate${i}`)?.value || ''; // Get the date input value
                 const description = document.getElementById(`experienceDescription${i}`)?.value || '';
 
-                if (title || company || description) {
+                if (title || company || date || description) {
                     preview.innerHTML += `
-                    <strong>${title}</strong> at ${company}<br>
-                    <div style="border: none; padding: 0; height: auto; max-height: 50px; overflow: hidden;">${description}</div>
+                        <strong>${title}</strong> at ${company} (${date})<br> <!-- Include date in the preview -->
+                        <div style="border: none; padding: 0; height: auto; max-height: 50px; overflow: hidden;">${description}</div>
                     `;
                 }
             }
-        }       
-
-
-
+        }
 
 
         // Education management
