@@ -46,12 +46,8 @@ Contributions are welcome! If you have suggestions or improvements, feel free to
    ```
 5. Open a pull request.
 
-## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-##Team Members
+## Team Members
 Aman -234CA007
 Ankit -234CA008
 Ankur -234CA009
