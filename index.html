@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        body { font-family: 'Roboto', sans-serif; }
+        
+        /* Template Styles */
+        .classic h2, .classic h3 { color: #1f2937; font-size: 20px; font-weight: bold; }
+        .classic p { font-size: 14px; line-height: 1.6; }
+        .classic hr { border-top: 1px solid #e5e7eb; }
+        
+        .professional h2 { color: #2d3748; font-size: 24px; font-weight: bold; }
+        .professional h3 { color: #4a5568; font-weight: bold; margin-top: 1.5rem; }
+        .professional p { font-size: 13px; line-height: 1.6; }
+        .professional hr { border-top: 2px solid #e5e7eb; }
+        
+        .modern h2 { color: #3b82f6; font-size: 26px; font-weight: bold; }
+        .modern h3 { color: #6366f1; font-weight: bold; margin-top: 1.5rem; }
+        .modern p { font-size: 15px; line-height: 1.7; color: #374151; }
+        .modern hr { border-top: 1px dashed #cbd5e1; margin-top: 1rem; }
+        
+        /* Ensure text wrapping */
+        .resumePreview p, .resumePreview div { 
+            word-wrap: break-word; 
+            overflow-wrap: break-word; 
+            white-space: normal;
+        }
+
+        /* Button Hover Effects */
+        .btn {
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #2563eb; /* Darker blue on hover */
+        }
+
+        /* Input Focus Effects */
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <nav class="bg-gray-800 shadow-lg fixed top-0 left-0 right-0 z-20"> <!-- Adjusted z-index -->
+        <div class="container mx-auto flex justify-between items-center p-4">
+            <div class="text-white font-bold text-xl">Resume Builder</div>
+            <div class="space-x-4">
+                <a href="home.html" class="text-gray-300 hover:text-white nav-link">Home</a>
+                <a href="home.html#features" class="text-gray-300 hover:text-white nav-link">Features</a>
+                <a href="home.html#contact" class="text-gray-300 hover:text-white nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container mx-auto py-10 px-5 flex">
+        <!-- Left Side: Form -->
+        <div class="w-1/2 bg-white p-6 rounded-lg shadow-lg mx-4 my-5">
+            <h2 class="text-xl font-bold mb-4">Resume Builder</h2>
+            
+            <!-- Personal Information -->
+            <h3 class="text-lg font-semibold mt-4">Personal Information</h3>
+            <input id="nameInput" type="text" placeholder="Full Name" class="w-full p-2 mb-2 border rounded focus:outline-none focus:ring focus:ring-blue-300">
+            <input id="emailInput" type="email" placeholder="Email" class="w-full p-2 mb-2 border rounded focus:outline-none focus:ring focus:ring-blue-300">
+            <input id="phoneInput" type="text" placeholder="Phone Number" class="w-full p-2 mb-2 border rounded focus:outline-none focus:ring focus:ring-blue-300">
+            <input id="locationInput" type="text" placeholder="Location" class="w-full p-2 mb-4 border rounded focus:outline-none focus:ring focus:ring-blue-300">
+            
+            <!-- Summary -->
+            <h3 class="text-lg font-semibold mt-4">Summary</h3>
+            <textarea id="summaryInput" placeholder="Brief Summary" class="w-full p-2 border rounded focus:outline-none focus:ring focus:ring-blue-300"></textarea>
+
+            <!-- Experience Section -->
+            <h3 class="text-lg font-semibold mt-4">Experience</h3>
+            <div id="experienceContainer" class="mb-4"></div>
+            <button onclick="addExperience()" class="btn bg-blue-500 text-white px-4 py-2 rounded-md mt-2">Add Experience</button>
+
+            <!-- Education Section -->
+            <h3 class="text-lg font-semibold mt-4">Education</h3>
+            <div id="educationContainer" class="mb-4"></div>
+            <button onclick="addEducation()" class="btn bg-blue-500 text-white px-4 py-2 rounded-md mt-2">Add Education</button>
+
+            <!-- Projects Section -->
+            <h3 class="text-lg font-semibold mt-4">Projects</h3>
+            <div id="projectsContainer" class="mb-4"></div>
+            <button onclick="addProject()" class="btn bg-blue-500 text-white px-4 py-2 rounded-md mt-2">Add Project</button>
+
+            <!-- Certifications Section -->
+            <h3 class="text-lg font-semibold mt-4">Certifications</h3>
+            <div id="certificationsContainer" class="mb-4"></div>
+            <button onclick="addCertification()" class="btn bg-blue-500 text-white px-4 py-2 rounded-md mt-2">Add Certification</button>
+            
+            <!-- Skills -->
+            <h3 class="text-lg font-semibold mt-4">Skills</h3>
+            <input id="skillsInput" type="text" placeholder="List skills separated by commas" class="w-full p-2 mb-2 border rounded focus:outline-none focus:ring focus:ring-blue-300">
+
+            <!-- Download Button -->
+            <button onclick="downloadResume()" class="btn mt-4 bg-blue-500 text-white px-4 py-2 rounded-md w-full">Download Resume as PDF</button>
+        </div>
+        
+        <!-- Template Selection and Preview -->
+        <div class="w-1/2 bg-white p-5 rounded-lg shadow-lg">
+            <h3 class="text-lg font-semibold mt-4">Choose a Template</h3>
+            <select id="templateSelect" onchange="applyTemplate(this.value)" class="w-full p-2 mb-4 border rounded focus:outline-none focus:ring focus:ring-blue-300">
+                <option value="classic">Classic</option>
+                <option value="professional">Professional</option>
+                <option value="modern">Modern</option>
+            </select>
+
+            <!-- Resume Preview -->
+            <div class="resumePreview w-full bg-white p-5 rounded-lg shadow-lg classic" id="resumePreview">
+                <h2 class="text-2xl font-semibold" id="previewName">Your Name</h2>
+                <p id="previewContact" class="text-sm text-gray-600">Contact Information</p>
+                <hr class="my-4">
+                
+                <!-- Summary -->
+                <h3 class="text-lg font-semibold">Summary</h3>
+                <p id="previewSummary">Your summary will appear here.</p>
+
+                <!-- Experience Preview -->
+                <h3 class="text-lg font-semibold mt-4">Experience</h3>
+                <div id="previewExperience">Your experience details will appear here.</div>
+
+                <!-- Education Preview -->
+                <h3 class="text-lg font-semibold mt-4">Education</h3>
+                <div id="previewEducation">Your education details will appear here.</div>
+
+                <!-- Skills Preview -->
+                <h3 class="text-lg font-semibold mt-4">Skills</h3>
+                <p id="previewSkills">Your skills will appear here.</p>
+
+                <!-- Projects Preview -->
+                <h3 class="text-lg font-semibold mt-4">Projects</h3>
+                <div id="previewProjects">Your projects will appear here.</div>
+
+                <!-- Certifications Preview -->
+                <h3 class="text-lg font-semibold mt-4">Certifications</h3>
+                <div id="previewCertifications">Your certifications will appear here.</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Update preview for live text input
+        document.querySelectorAll("input, textarea").forEach(element => {
+            element.addEventListener('input', updatePreview);
+        });
+
+        function updatePreview() {
+            document.getElementById('previewName').innerText = document.getElementById('nameInput').value || 'Your Name';
+            document.getElementById('previewContact').innerText = [
+                document.getElementById('emailInput').value,
+                document.getElementById('phoneInput').value,
+                document.getElementById('locationInput').value
+            ].filter(Boolean).join(' | ') || 'Contact Information';
+            document.getElementById('previewSummary').innerText = document.getElementById('summaryInput').value || 'Your summary will appear here.';
+            document.getElementById('previewSkills').innerText = document.getElementById('skillsInput').value || 'Your skills will appear here.';
+            updateExperiencePreview();
+            updateEducationPreview();
+            updateProjectsPreview();
+            updateCertificationsPreview();
+        }
+
+        // Experience management
+        let experienceCount = 0;
+        function addExperience() {
+            experienceCount++;
+            const container = document.createElement('div');
+            container.innerHTML = `
+                <input type="text" placeholder="Job Title" class="w-full p-2 mb-2 border rounded focus:outline-none focus:ring focus:ring-blue-300" id="experienceTitle${experienceCount}">
+                <input type="text" placeholder="Company" class="w-full p-2 mb-2 border rounded focus:outline-none focus:ring focus:ring-blue-300" id="experienceCompany${experienceCount}">
+                <textarea placeholder="Description" class="w-full p-2 mb-2 border rounded focus:outline-none focus:ring focus:ring-blue-300 h-24" id="experienceDescription${experienceCount}"></textarea>
+                <button onclick="removeExperience(this)" class="btn bg-red-500 text-white px-4 py-2 rounded-md mt-2">Remove Experience</button>
+                <hr class="my-4">
+            `;
+            document.getElementById('experienceContainer').appendChild(container);
+            addExperienceEventListeners(container);
+            updatePreview(); // Ensure preview updates immediately
+        }
+
+        function addExperienceEventListeners(container) {
+            container.querySelectorAll("input, textarea").forEach(element => {
+                element.addEventListener('input', updateExperiencePreview);
+            });
+        }
+
+        function removeExperience(button) {
+            button.parentElement.remove();
+            updateExperiencePreview();
+        }
+
+        function updateExperiencePreview() {
+            const preview = document.getElementById('previewExperience');
+            preview.innerHTML = '';
+            for (let i = 1; i <= experienceCount; i++) {
+                const title = document.getElementById(`experienceTitle${i}`)?.value || '';
+                const company = document.getElementById(`experienceCompany${i}`)?.value || '';
+                const description = document.getElementById(`experienceDescription${i}`)?.value || '';
+
+                if (title || company || description) {
+                    preview.innerHTML += `
+                    <strong>${title}</strong> at ${company}<br>
+                    <div style="border: none; padding: 0; height: auto; max-height: 50px; overflow: hidden;">${description}</div>
+                    `;
+                }
+            }
+        }       
+
+
+
+
+
+        // Education management
+        let educationCount = 0;
+        function addEducation() {
+            educationCount++;
+            const container = document.createElement('div');
+            container.innerHTML = `
+                <input type="text" placeholder="Degree" class="w-full p-2 mb-2 border rounded focus:outline-none focus:ring focus:ring-blue-300" id="educationDegree${educationCount}">
+                <input type="text" placeholder="Institution" class="w-full p-2 mb-2 border rounded focus:outline-none focus:ring focus:ring-blue-300" id="educationInstitution${educationCount}">
+                <input type="text" placeholder="Year" class="w-full p-2 mb-2 border rounded focus:outline-none focus:ring focus:ring-blue-300" id="educationYear${educationCount}">
+                <button onclick="removeEducation(this)" class="btn bg-red-500 text-white px-4 py-2 rounded-md mt-2">Remove Education</button>
+                <hr class="my-4">
+            `;
+            document.getElementById('educationContainer').appendChild(container);
+            addEducationEventListeners(container);
+            updatePreview(); // Ensure preview updates immediately
+        }
+
+        function addEducationEventListeners(container) {
+            container.querySelectorAll("input").forEach(element => {
+                element.addEventListener('input', updateEducationPreview);
+            });
+        }
+
+        function removeEducation(button) {
+            button.parentElement.remove();
+            updateEducationPreview();
+        }
+
+        function updateEducationPreview() {
+            const preview = document.getElementById('previewEducation');
+            preview.innerHTML = '';
+            for (let i = 1; i <= educationCount; i++) {
+                const degree = document.getElementById(`educationDegree${i}`)?.value || '';
+                const institution = document.getElementById(`educationInstitution${i}`)?.value || '';
+                const year = document.getElementById(`educationYear${i}`)?.value || '';
+                if (degree || institution || year) {
+                    preview.innerHTML += `<strong>${degree}</strong> from ${institution} (${year})<br>`;
+                }
+            }
+            if (preview.innerHTML === '') preview.innerHTML = 'Your education details will appear here.';
+        }
+
+        // Projects management
+        let projectCount = 0;
+        function addProject() {
+            projectCount++;
+            const container = document.createElement('div');
+            container.innerHTML = `
+                <input type="text" placeholder="Project Title" class="w-full p-2 mb-2 border rounded focus:outline-none focus:ring focus:ring-blue-300" id="projectTitle${projectCount}">
+                <textarea placeholder="Project Description" class="w-full p-2 mb-2 border rounded focus:outline-none focus:ring focus:ring-blue-300" id="projectDescription${projectCount}"></textarea>
+                <button onclick="removeProject(this)" class="btn bg-red-500 text-white px-4 py-2 rounded-md mt-2">Remove Project</button>
+                <hr class="my-4">
+            `;
+            document.getElementById('projectsContainer').appendChild(container);
+            addProjectEventListeners(container);
+            updatePreview(); // Ensure preview updates immediately
+        }
+
+        function addProjectEventListeners(container) {
+            container.querySelectorAll("input, textarea").forEach(element => {
+                element.addEventListener('input', updateProjectsPreview);
+            });
+        }
+
+        function removeProject(button) {
+            button.parentElement.remove();
+            updateProjectsPreview();
+        }
+
+        function updateProjectsPreview() {
+            const preview = document.getElementById('previewProjects');
+            preview.innerHTML = '';
+            for (let i = 1; i <= projectCount; i++) {
+                const title = document.getElementById(`projectTitle${i}`)?.value || '';
+                const description = document.getElementById(`projectDescription${i}`)?.value || '';
+                if (title || description) {
+                    preview.innerHTML += `
+                    <strong>${title}</strong><br>
+                    <div style="border: none; padding: 0; height: auto; max-height: 50px; overflow: hidden;">${description}</div>
+                    `;
+                }
+            }
+            if (preview.innerHTML === '') {
+                preview.innerHTML = 'Your projects will appear here.';
+             }
+        }
+
+
+        // Certifications management
+        let certificationCount = 0;
+        function addCertification() {
+            certificationCount++;
+            const container = document.createElement('div');
+            container.innerHTML = `
+                <input type="text" placeholder="Certification Name" class="w-full p-2 mb-2 border rounded focus:outline-none focus:ring focus:ring-blue-300" id="certificationName${certificationCount}">
+                <input type="text" placeholder="Issuing Organization" class="w-full p-2 mb-2 border rounded focus:outline-none focus:ring focus:ring-blue-300" id="certificationOrganization${certificationCount}">
+                <input type="text" placeholder="Year" class="w-full p-2 mb-2 border rounded focus:outline-none focus:ring focus:ring-blue-300" id="certificationYear${certificationCount}">
+                <button onclick="removeCertification(this)" class="btn bg-red-500 text-white px-4 py-2 rounded-md mt-2">Remove Certification</button>
+                <hr class="my-4">
+            `;
+            document.getElementById('certificationsContainer').appendChild(container);
+            addCertificationEventListeners(container);
+            updatePreview(); // Ensure preview updates immediately
+        }
+
+        function addCertificationEventListeners(container) {
+            container.querySelectorAll("input").forEach(element => {
+                element.addEventListener('input', updateCertificationsPreview);
+            });
+        }
+
+        function removeCertification(button) {
+            button.parentElement.remove();
+            updateCertificationsPreview();
+        }
+
+        function updateCertificationsPreview() {
+            const preview = document.getElementById('previewCertifications');
+            preview.innerHTML = '';
+            for (let i = 1; i <= certificationCount; i++) {
+                const name = document.getElementById(`certificationName${i}`)?.value || '';
+                const organization = document.getElementById(`certificationOrganization${i}`)?.value || '';
+                const year = document.getElementById(`certificationYear${i}`)?.value || '';
+                if (name || organization || year) {
+                    preview.innerHTML += `<strong>${name}</strong> from ${organization} (${year})<br>`;
+                }
+            }
+            if (preview.innerHTML === '') preview.innerHTML = 'Your certifications will appear here.';
+        }
+
+        // Download Resume
+        function downloadResume() {
+            const element = document.getElementById('resumePreview');
+            const opt = {
+                margin: 1,
+                filename: 'resume.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            html2pdf().from(element).set(opt).save();
+        }
+
+        // Apply selected template
+        function applyTemplate(template) {
+            const preview = document.getElementById('resumePreview');
+            preview.className = `resumePreview w-full bg-white p-5 rounded-lg shadow-lg ${template}`;
+            updatePreview(); // Update the preview to apply new styles
+        }
+    </script>
+</body>
+</html>

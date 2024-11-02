@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .feature-card:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease-in-out;
+        }
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-red-900 to-blue-800">
+
+    <nav class="bg-gray-800 shadow-lg fixed top-0 left-0 right-0 z-20"> <!-- Adjusted z-index -->
+        <div class="container mx-auto flex justify-between items-center p-4">
+            <div class="text-white font-bold text-xl">Resume Builder</div>
+            <div class="space-x-4">
+                <a href="index.html" class="text-gray-300 hover:text-white nav-link">Generate Resume</a>
+                <a href="#features" class="text-gray-300 hover:text-white nav-link">Features</a>
+                <a href="#contact" class="text-gray-300 hover:text-white nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-24 mt-20">
+        <header class="text-center mb-10">
+            <h1 class="text-5xl font-bold text-white mb-4">Welcome to Our Resume Builder</h1>
+            <p class="text-lg text-gray-300">Create a professional resume with ease.</p>
+        </header>
+
+        <div class="flex justify-center mt-8">
+            <button onclick="window.location.href='index.html'" class="bg-blue-600 text-white font-semibold py-2 px-4 rounded shadow hover:bg-blue-700 transition duration-200">
+                Generate Resume
+            </button>
+        </div>
+
+        <section id="features" class="relative block px-6 py-10 md:py-20 md:px-10 border-t border-b border-neutral-900 bg-neutral-900/50 mt-10 pt-32"> <!-- Increased pt -->
+            <div class="relative mx-auto max-w-5xl text-center">
+                <span class="text-gray-400 my-3 flex items-center justify-center font-medium uppercase tracking-wider">
+                    Why Choose Us
+                </span>
+                <h2 class="block w-full bg-gradient-to-b from-white to-gray-300 bg-clip-text font-bold text-transparent text-3xl sm:text-4xl">
+                    Features of Our Resume Builder
+                </h2>
+                <p class="mx-auto my-4 w-full max-w-xl bg-transparent text-center font-medium leading-relaxed tracking-wide text-gray-300">
+                    Our platform is designed to help you create stunning resumes that stand out. Here’s what we offer:
+                </p>
+            </div>
+
+            <div class="relative mx-auto max-w-7xl z-10 grid grid-cols-1 gap-10 pt-14 sm:grid-cols-2 lg:grid-cols-3">
+                <div class="rounded-md border border-neutral-800 bg-neutral-900 p-8 text-center shadow feature-card">
+                    <div class="button-text mx-auto flex h-12 w-12 items-center justify-center rounded-md border" style="background-color: rgba(30, 58, 138, 0.8);">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-color-swatch" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M19 3h-4a2 2 0 0 0 -2 2v12a4 4 0 0 0 8 0v-12a2 2 0 0 0 -2 -2"></path>
+                            <path d="M13 7.35l-2 -2a2 2 0 0 0 -2.828 0l-2.828 2.828a2 2 0 0 0 0 2.828l9 9"></path>
+                            <path d="M7.3 13h-2.3a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h12"></path>
+                            <line x1="17" y1="17" x2="17" y2="17.01"></line>
+                        </svg>
+                    </div>
+                    <h3 class="mt-6 text-gray-200">Customizable Templates</h3>
+                    <p class="my-4 mb-0 font-normal leading-relaxed tracking-wide text-gray-300">Choose from a variety of professionally designed templates that you can easily customize to fit your style.</p>
+                </div>
+
+                <div class="rounded-md border border-neutral-800 bg-neutral-900 p-8 text-center shadow feature-card">
+                    <div class="button-text mx-auto flex h-12 w-12 items-center justify-center rounded-md border" style="background-color: rgba(30, 58, 138, 0.8);">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-bolt" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <polyline points="13 3 13 10 19 10 11 21 11 14 5 14 13 3"></polyline>
+                        </svg>
+                    </div>
+                    <h3 class="mt-6 text-gray-200">Fast and Efficient</h3>
+                    <p class="my-4 mb-0 font-normal leading-relaxed tracking-wide text-gray-300">Create your resume quickly with our user-friendly interface, allowing you to focus on content instead of design.</p>
+                </div>
+
+                <div class="rounded-md border border-neutral-800 bg-neutral-900 p-8 text-center shadow feature-card">
+                    <div class="button-text mx-auto flex h-12 w-12 items-center justify-center rounded-md border" style="background-color: rgba(30, 58, 138, 0.8);">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tools" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M3 21h4l13 -13a1.5 1.5 0 0 0 -4 -4l-13 13v4"></path>
+                            <line x1="14.5" y1="5.5" x2="18.5" y2="9.5"></line>
+                        </svg>
+                    </div>
+                    <h3 class="mt-6 text-gray-200">Export Options</h3>
+                    <p class="my-4 mb-0 font-normal leading-relaxed tracking-wide text-gray-300">Easily download your resume in various formats like PDF, DOCX, and more.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="mt-10 bg-neutral-900 p-6 rounded-lg">
+            <h2 class="text-3xl font-bold text-white text-center">Contact Us</h2>
+            <p class="text-lg text-gray-300 text-center mt-4">
+                If you have any questions or need assistance, feel free to reach out to us!
+            </p>
+            <div class="mt-6 max-w-md mx-auto">
+                <ul class="list-none">
+                    <li class="mb-4">
+                        <span class="text-gray-300 font-semibold">Email:</span> 
+                        <a href="mailto:TeamResume@gmail.com" class="text-blue-400 hover:underline">TeamResume@gmail.com</a>
+                    </li>
+                    <li class="mb-4">
+                        <span class="text-gray-300 font-semibold">Phone:</span> 
+                        <a href="tel:+1234567890" class="text-blue-400 hover:underline">+91 9876556789</a>
+                    </li>
+                    <li>
+                        <span class="text-gray-300 font-semibold">Address:</span> 
+                        <span class="text-gray-300">NITK Surathkal, Mangalore</span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+    <footer class="bg-gray-800 text-center text-white py-4">
+        <p>&copy; 2024 Resume Builder. All rights reserved.</p>
+    </footer>
+</body>
+</html>
