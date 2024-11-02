@@ -1,30 +1,3 @@
-Here's a sample README file for your resume builder project. You can modify it to suit your project's specifics:
-
-```markdown
-# Resume Builder
-
-A simple web application designed to help users create and preview their resumes in real-time. This project allows users to add sections for education, experience, skills, projects, and certifications, with a live preview of their resume.
-
-## Table of Contents
-
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
-
-## Features
-
-- **User-Friendly Interface**: Intuitive design for easy navigation and input.
-- **Dynamic Resume Sections**: Add, edit, and remove sections for:
-  - Education
-  - Experience
-  - Skills
-  - Projects
-  - Certifications
-- **Live Preview**: See changes in real-time as you fill in your details.
-- **Mobile Responsive**: Works well on various screen sizes.
 
 ## Technologies Used
 
